@@ -9,16 +9,21 @@ class Quizzler extends StatelessWidget {
   Widget build(BuildContext context) {
       return MaterialApp(
         home: Scaffold(
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.grey.shade900,
           body: SafeArea(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
             Expanded(
-              child: Center(
-                child: Expanded(child: Text(style: TextStyle(
-                  color: Colors.white),
-                 'This is where the question text will go')),
+              flex: 5,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Center(
+                  child: Text(style: TextStyle(
+                    color: Colors.white),
+                   'This is where the question text will go'),
+                ),
               ),
             ),
             
