@@ -82,12 +82,13 @@ class _QuizPageState extends State<QuizPage> {
           ),
         ),
         Expanded(
-          child: Container(
-            color: Colors.green,
+          //child: Container(
+            //color: Colors.green,
             //child: Expanded(
               child: Padding(
-                padding: EdgeInsets.all(15.0),
+                 padding: EdgeInsets.all(20.0),
                 child: TextButton(
+                   style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.green),),
                   //textColor: Colors.white,
                   child: Text(
                     'True',
@@ -103,19 +104,20 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
             //),
-          ),
+          //),
         ),
         SizedBox(
-          height: 20,
+          height: 5,
         ),
         
         Expanded(
-          child: Container(
-            color: Colors.red,
+          //child: Container(
+            //color: Colors.red,
             //child: Expanded(
-                // child: Padding(
-                //   padding: EdgeInsets.all(15.0),
+                 child: Padding(
+                   padding: EdgeInsets.all(20.0),
                   child: TextButton(
+                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red),),
                     child: Text(
                       'False',
                       style: TextStyle(
