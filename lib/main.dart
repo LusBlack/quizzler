@@ -41,6 +41,20 @@ class _QuizPageState extends State<QuizPage> {
     )
   ];
 
+  List<String> questions = [
+    'You can lead a cow down stairs but not up stairs.',
+    'Approximately one quarter of human bones are in the feet.',
+    'A slug\'s blood is green.',
+  ];
+
+  List<bool> answers = [
+    true,
+    true,
+    false
+  ];
+
+  int questionNumber = 0;
+
   // void checkAnswer(bool userPickedAnswer) {
   //   bool correctAnswer = quizBrain.getCorrectAnswer();
 
@@ -80,7 +94,7 @@ class _QuizPageState extends State<QuizPage> {
             child: Center(
               child: Text(
                 //quizBrain.getQuestionText(),
-                "this is where the question goes",
+                  questions[questionNumber],
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -107,10 +121,16 @@ class _QuizPageState extends State<QuizPage> {
                     ),
                   ),
                   onPressed: () {
-                    setState(() {
-                      scoreKeeper.add(
+                    bool correctAnswer = answers[questionNumber];
+                    if(correctAnswer == true) {
+                       scoreKeeper.add(
                         Icon(Icons.emoji_emotions, color: Colors.green)
                       );
+                    } else {
+                        scoreKeeper.add(Icon(Icons.sentiment_very_dissatisfied, color: Colors.red));
+                    }
+                    setState(() {
+                      questionNumber++;
                     });
                   },
                 ),
@@ -137,9 +157,17 @@ class _QuizPageState extends State<QuizPage> {
                         color: Colors.white,
                       ),
                     ),
-                    onPressed: () {
+                      onPressed: () {
+                        bool correctAnswer = answers[questionNumber];
+                      if(correctAnswer == false) {
+                        scoreKeeper.add(
+                          Icon(Icons.emoji_emotions, color: Colors.green)
+                        );
+                      } else {
+                          scoreKeeper.add(Icon(Icons.sentiment_very_dissatisfied, color: Colors.red));
+                      }
                       setState((){
-                        scoreKeeper.add(Icon(Icons.sentiment_very_dissatisfied, color: Colors.red));
+                        
                       });
                       //The user picked false.
                       //checkAnswer(false);
@@ -158,8 +186,4 @@ class _QuizPageState extends State<QuizPage> {
   }
 }
 
-/*
-question1: 'You can lead a cow down stairs but not up stairs.', false,
-question2: 'Approximately one quarter of human bones are in the feet.', true,
-question3: 'A slug\'s blood is green.', true,
-*/
+
