@@ -1,8 +1,8 @@
 class Question {
-var  questionText;
-var questionAnswer;
+  var questionText;
+  var questionAnswer;
 
-  Question({ q, a}) {
+  Question( q, a) {
     questionText = q;
     questionAnswer = a;
   }
