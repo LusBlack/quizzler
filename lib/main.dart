@@ -1,10 +1,9 @@
 
 import 'package:flutter/material.dart';
 
-//import 'question.dart';
+
 import 'quiz_brain.dart';
-//TODO: Step 2 - Import the rFlutter_Alert package here.
-//import 'quiz_brain.dart';
+
 
 QuizBrain quizBrain = QuizBrain();
 
@@ -45,9 +44,6 @@ class _QuizPageState extends State<QuizPage> {
   ];
 
 
-  int questionNumber = 0;
-
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -61,7 +57,7 @@ class _QuizPageState extends State<QuizPage> {
             child: Center(
               child: Text(
                 //quizBrain.getQuestionText(),
-                  quizBrain.questionBank[questionNumber].questionText,
+                  quizBrain.getQuestionText(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -88,7 +84,7 @@ class _QuizPageState extends State<QuizPage> {
                     ),
                   ),
                   onPressed: () {
-                    bool correctAnswer = quizBrain.questionBank[questionNumber].questionAnswer;
+                    bool correctAnswer = quizBrain.getQuestionAnswer();
                     if(correctAnswer == true) {
                        scoreKeeper.add(
                         Icon(Icons.emoji_emotions, color: Colors.green)
@@ -97,7 +93,7 @@ class _QuizPageState extends State<QuizPage> {
                         scoreKeeper.add(Icon(Icons.sentiment_very_dissatisfied, color: Colors.red));
                     }
                     setState(() {
-                      questionNumber++;
+                      quizBrain.nextQuestion();
                     });
                   },
                 ),
@@ -119,7 +115,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
             ),
               onPressed: () {
-                bool correctAnswer = quizBrain.questionBank[questionNumber].questionAnswer;
+                bool correctAnswer = quizBrain.getQuestionAnswer();
               if(correctAnswer == false) {
                 scoreKeeper.add(
                   Icon(Icons.emoji_emotions, color: Colors.green)
@@ -128,7 +124,7 @@ class _QuizPageState extends State<QuizPage> {
                   scoreKeeper.add(Icon(Icons.sentiment_very_dissatisfied, color: Colors.red));
               }
               setState((){
-                questionNumber++;
+                quizBrain.nextQuestion();
               });
             },
           ),
