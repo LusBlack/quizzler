@@ -1,5 +1,9 @@
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+
 
 
 import 'quiz_brain.dart';
@@ -32,17 +36,41 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  List<Icon> scoreKeeper = [
-    Icon(
-      Icons.emoji_emotions,
-      color: Colors.green
-    ),
-    Icon(
-      Icons.sentiment_very_dissatisfied,
-      color: Colors.red
-    )
-  ];
 
+
+  List<Icon> scoreKeeper = [];
+
+  void checkAnswer(bool userAnswer) {
+
+    bool correctAnswer = quizBrain.getQuestionAnswer();
+    setState((){
+       if(quizBrain.isFinished() == true) {
+        scoreKeeper.clear();
+        // var duration = const Duration(seconds: 3);
+        //  sleep(duration);
+          Alert(
+            context: context,
+            title: "Finished",
+            desc: "You've reached the end of the quiz.",
+          ).show();
+           
+           quizBrain.reset();
+         
+          quizBrain.nextQuestion();
+          
+        } 
+      });
+    if(correctAnswer == userAnswer) {
+      scoreKeeper.add(
+        Icon(Icons.emoji_emotions, color: Colors.green)
+      );
+    } else {
+        scoreKeeper.add(Icon(Icons.sentiment_very_dissatisfied, color: Colors.red));
+      }
+        quizBrain.nextQuestion();
+  }
+  
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -68,9 +96,6 @@ class _QuizPageState extends State<QuizPage> {
           ),
         ),
         Expanded(
-          //child: Container(
-            //color: Colors.green,
-            //child: Expanded(
               child: Padding(
                  padding: EdgeInsets.all(20.0),
                 child: TextButton(
@@ -84,17 +109,7 @@ class _QuizPageState extends State<QuizPage> {
                     ),
                   ),
                   onPressed: () {
-                    bool correctAnswer = quizBrain.getQuestionAnswer();
-                    if(correctAnswer == true) {
-                       scoreKeeper.add(
-                        Icon(Icons.emoji_emotions, color: Colors.green)
-                      );
-                    } else {
-                        scoreKeeper.add(Icon(Icons.sentiment_very_dissatisfied, color: Colors.red));
-                    }
-                    setState(() {
-                      quizBrain.nextQuestion();
-                    });
+                    checkAnswer(true);
                   },
                 ),
               ),
@@ -115,17 +130,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
             ),
               onPressed: () {
-                bool correctAnswer = quizBrain.getQuestionAnswer();
-              if(correctAnswer == false) {
-                scoreKeeper.add(
-                  Icon(Icons.emoji_emotions, color: Colors.green)
-                );
-              } else {
-                  scoreKeeper.add(Icon(Icons.sentiment_very_dissatisfied, color: Colors.red));
-              }
-              setState((){
-                quizBrain.nextQuestion();
-              });
+                checkAnswer(false);
             },
           ),
         ),
